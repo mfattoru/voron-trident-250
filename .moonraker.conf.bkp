@@ -1,7 +1,7 @@
 [server]
 host = 0.0.0.0
 port = 7125
-klippy_uds_address = /home/biqu/printer_data/comms/klippy.sock
+klippy_uds_address = ~/printer_data/comms/klippy.sock
 
 [authorization]
 trusted_clients = 
@@ -74,31 +74,15 @@ requirements = scripts/KlipperScreen-requirements.txt
 install_script = scripts/KlipperScreen-install.sh
 managed_services = KlipperScreen
 
-[update_manager led_effect]
-type = git_repo
-path = ~/klipper-led_effect
-origin = https://github.com/julianschill/klipper-led_effect.git
-is_system_service = False
-
 [update_manager mobileraker]
 type = git_repo
-path = /home/biqu/mobileraker_companion
+path = ~/mobileraker_companion
 origin = https://github.com/Clon1998/mobileraker_companion.git
 primary_branch = main
 managed_services = mobileraker
-env = /home/biqu/mobileraker-env/bin/python
+virtualenv = ~/mobileraker-env
 requirements = scripts/mobileraker-requirements.txt
 install_script = scripts/install.sh
-
-[update_manager moonraker-obico]
-type = git_repo
-path = ~/moonraker-obico
-origin = https://github.com/TheSpaghettiDetective/moonraker-obico.git
-env = /home/biqu/moonraker-obico-env/bin/python
-requirements = requirements.txt
-install_script = install.sh
-managed_services = 
-	moonraker-obico
 
 [update_manager Klipper-Adaptive-Meshing-Purging]
 type = git_repo
@@ -129,4 +113,37 @@ is_system_service = False
 managed_services = klipper
 info_tags = 
 	desc=Beacon Surface Scanner
+
+[spoolman]
+server = http://192.168.50.145:7912
+
+[update_manager Spoolman]
+type = zip
+channel = stable
+repo = Donkie/Spoolman
+path = /home/michele/Spoolman
+virtualenv = .venv
+requirements = requirements.txt
+persistent_files = 
+	.venv
+	.env
+managed_services = Spoolman
+
+[update_manager Klippain-ShakeTune]
+type = git_repo
+origin = https://github.com/Frix-x/klippain-shaketune.git
+path = ~/klippain_shaketune
+virtualenv = ~/klippy-env
+requirements = requirements.txt
+system_dependencies = system-dependencies.json
+primary_branch = main
+managed_services = klipper
+
+[update_manager klipper_auto_speed]
+type = git_repo
+path = ~/klipper_auto_speed
+origin = https://github.com/anonoei/klipper_auto_speed.git
+primary_branch = main
+install_script = install.sh
+managed_services = klipper
 
